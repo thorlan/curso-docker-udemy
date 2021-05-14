@@ -1,0 +1,62 @@
+docker images
+docker ps -a (todos os containers)
+docker ps (apenas os rodando)
+
+
+docker build -t feedback-node:volumes .   (build com o nome em -t)
+
+docker run -d -p 3000:80 --rm --name feedback-app -v feedback:/app/feedback feedback-node:volumes (roda com named volume)
+
+
+docker run -d -p 3000:80 --rm --name feedback-app -v feedback:/app/feedback -v "C:\Users\12742979743\Documents\Workspace\cursos\Docker-Kubernetes\data-volumes-01-starting-setup:/app" feedback-node:volumes          roda, binda volume e binda diretorio de fora para dentro, bom para desenvolvimento
+
+
+docker logs nomecontainer 
+
+
+Just a quick note: If you don't always want to copy and use the full path, you can use these shortcuts:
+
+macOS / Linux: -v $(pwd):/app
+
+Windows: -v "%cd%":/app
+
+
+RODA BINDANDO PORTA 3000 (DE FORA) COM A 80 DE DENTRO
+--RM MANDA limpar o container quando parar
+--name nome da imagem
+-v bindando feedback de fora com /app/feedback de dentro
+-v fullpath:/app  bindando o diretorio de fora com o de dentro (mudancas em tempo real)
+-v /app/node_modules   criando volume anonimo para node modules de dentro (ta evitando node_modules ser substituido com o de fora  npm install ocorre antes de bindar os diretorios)
+$ docker run -d -p 3000:80 --rm --name feedback-app -v feedback:/app/feedback -v "C:\Users\12742979743\Documents\Workspace\cursos\Docker-Kubernetes\data-volumes-01-starting-setup:/app" -v /app/node_modules feedback-node:volumes
+
+docker volume inspect nomedovolume  
+
+no comando de run posso passar variavel de ambiente chave=valor
+--env PORT:8000   OU --e PORT:8000
+--env-file ./.env  e dentro do arquivo PORT=8000
+
+
+para pegar localhost no docker uso o host.docker.internal
+
+docker network create nome-da-rede
+
+docker run --network nome-da-rede nomedaimagem que ai coloco todos na mesma rede!!!!
+
+docker network ls
+
+dentro do codigo inves de usar localhost posso usar o nome do container rodando
+para um poder ver o outro. http://psateapi:porta/path  por exemplo! DESDE QUE ESTEJAM NA MESMA REDE!
+
+
+
+
+
+
+
+
+
+docker build -t nome .
+
+-p portadedentro:portadefora
+
+pra rodar um container com react, tem que entrar com -it se nao ele para!
