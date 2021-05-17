@@ -1,0 +1,54 @@
+version: "3.8"
+services:
+  mongodb:
+    image: 'mongo'
+    container_name: mongodb
+    volumes:
+      - data:/data/db
+    #environment:
+      #- MONGO_INITDB_ROOT_USERNAME=admin 
+      #MONGO_INITDB_ROOT_USERNAME:admin
+      #MONGO_INITDB_ROOT_PASSWORD:secret
+    env_file:
+      - ./env/mongo.env
+    #networks:
+      #- goals-net
+
+  backend:
+    build: ./backend
+    container_name: goals-backend
+    #build:
+      #context: ./backend
+      #dockerfile: Dockerfile
+      #args:
+        #somearg: value
+    #image: 'goals-node'
+    ports:
+      - '80:80'
+    volumes:
+      - logs:/app/logs
+      - ./backend:/app #bind volumes, nao precisa ir la em baixo
+      - /app/node_modules
+    env_file:
+      - ./env/backend.env
+    depends_on:
+      - mongodb
+ 
+  frontend:
+    build: ./frontend
+    container_name: goals-frontend
+    ports:
+      - '3000:3000'
+    volumes:
+      - ./frontend/src:/app/src #bind volumes, nao precisa ir la em baixo
+    stdin_open: true
+    tty: true # -it flag aqui!
+    depends_on:
+      - backend
+
+#docker compose cria um network padrao para todos eles
+#anonymous e bind mount nao precisa!
+#named volumes tem que ser declarado aqui fora tbm
+volumes:
+  data:
+  logs:

@@ -48,13 +48,6 @@ dentro do codigo inves de usar localhost posso usar o nome do container rodando
 para um poder ver o outro. http://psateapi:porta/path  por exemplo! DESDE QUE ESTEJAM NA MESMA REDE!
 
 
-
-
-
-
-
-
-
 docker build -t nome .
 
 -p portadedentro:portadefora
