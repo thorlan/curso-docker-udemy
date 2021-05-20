@@ -53,3 +53,36 @@ docker build -t nome .
 -p portadedentro:portadefora
 
 pra rodar um container com react, tem que entrar com -it se nao ele para!
+
+
+
+EXECUTAR COMANDO DENTRO DO CONTAINER:
+	- executar o container com -d -it
+	- docker exec nomedocontainer comando
+		-docker exec (-it se quiser ficar conectado) my-react-app npm init
+
+
+	-docker run -it node npm init (vai executar o container e executar o npm init!)
+
+* ler logs do interc2 docker run -it entrada-wsdl tail -F config/log.txt 
+
+
+#append os comandos usados apos o docker run
+#docker run -it node-util -v ${pwd}:/app install expres --save   
+#(tirei o npm do inicio! vai instalar o express)
+ENTRYPOINT ["npm"] no Dockerfile faz um append com os comandos passados
+
+para passar um exec no docker compose (para usar no entrypoint do dockerfile)
+docker-compose run servicename comando
+docker-compose run npm init
+version: "3.8"
+services:
+  npm:
+    build: ./
+    stdin_open: true
+    tty: true
+    volumes:
+      - ./:/app
+
+ docker-compose run nao remove o container ao parar
+ docker-compose run --rm npm init   podemos passar o rm para eles tbm!
