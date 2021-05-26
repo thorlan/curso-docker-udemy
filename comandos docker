@@ -55,7 +55,6 @@ docker build -t nome .
 pra rodar um container com react, tem que entrar com -it se nao ele para!
 
 
-
 EXECUTAR COMANDO DENTRO DO CONTAINER:
 	- executar o container com -d -it
 	- docker exec nomedocontainer comando
@@ -86,3 +85,4 @@ services:
 
  docker-compose run nao remove o container ao parar
  docker-compose run --rm npm init   podemos passar o rm para eles tbm!
+
