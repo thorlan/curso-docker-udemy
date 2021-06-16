@@ -1,0 +1,25 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: second-app-deployment #nome do kubectl deployment nome
+spec:
+  replicas: 1
+  #selector aponta para o template!
+  selector:
+    matchLabels:
+      app: second-app
+      tier: backend
+  template:
+    metadata: 
+      labels:
+        app: second-app
+        tier: backend
+    spec: 
+      containers:
+        - name: second-node
+          image: thorlandini/kub-first-app
+        # - name: ...
+        #   image: ...
+
+
+#ESSA IMAGEM CRIA UM POD COM UM CONTAINER (IMAGE)

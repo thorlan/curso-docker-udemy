@@ -90,3 +90,53 @@ services:
  docker-compose run nao remove o container ao parar
  docker-compose run --rm npm init   podemos passar o rm para eles tbm!
 
+
+
+
+
+COMANDOS KUBERNETES
+instalar kubectl e minikube
+
+
+kubectl get services -> expoe os servicos q estao rodando no kubectl
+kubectl get pods -> mostra os pods
+kubectl scale -> quantas instancias (pods) eu quero do cara
+	kubectl scale deployment/first-app --replicas=3  (o trafego é distribuido automaticamente, é invisivel para usuarios!)
+
+
+
+minikube service first-app    -> faz o minikube "servir nosso app que demos o deplyoment no kubectl"
+
+minikube start --driver=hyperv  (hyperv, virtualbox, docker etc)
+ou tentar somente o minikube start (se ja tiver sido configurado e nao quiser o delete)
+dando problema? minikube delete
+minikube dashboard
+
+change code e update um deployment
+	rebuild docker image:  docker build -t repositorio/imagem:TAG .
+	kubectl get deployments (para ver os deployments)
+	docker push repo/imagem
+	kubectl set image deployment/nomedodeployment nomedaimagem=nomedanovaimagem (set imagem para deployment/nome, nome da imagem pega no dashboard do kube)
+	NOVA IMAGENS SAO BAIXADAS SO SE TIVEREM NOVO TAG!
+	kubectl get deployments
+
+
+inspecionar rollout 
+	kubectl rollout status deployment/meu-app
+	kubectl get pods -> observar o nome e ver os que estao dando merda!
+	kubectl rollout undo deployment/meu-app  (ele faz um undo no ultimo deployment)
+
+	kubectl rollout history deployment/meu-app   (pego o historico de versoes dos deployment! PEGAR O REVISION NUMBER)
+	kubectl roloout undo deployment/meu-app --to-revision=NUMERO_REVISAO
+
+	kubectl delete service nome
+	kubectl delete deployment nome
+
+OUTRA FORMA DE FAZER ISSO TUDO!
+	kubectl apply -f config.yml   nosso "docker-compose!"
+
+kubectl apply -f=filename.yaml (roda o yaml file!)
+kubectl apply -f=serviceFilename.yaml  (para criar o servico)
+minikube service backend (nome dentro do service name!)
+kubectl delete -f=deployment.yaml -f=servicename.yaml  deleta tudo relacionado a ele (nAO APAGA O FILE)
+
