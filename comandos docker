@@ -140,3 +140,14 @@ kubectl apply -f=serviceFilename.yaml  (para criar o servico)
 minikube service backend (nome dentro do service name!)
 kubectl delete -f=deployment.yaml -f=servicename.yaml  deleta tudo relacionado a ele (nAO APAGA O FILE)
 
+kubectl delete -l group=nomedolabel
+
+
+
+entao pra chegar ao ponto do kubectl apply
+tenho que buildar o dockerfile
+tagear o dockerfile
+enviar para o dockerhub/repositorio
+so entao usar o apply no yaml
+depois minikube service nomedoserver
+pronto ta rodando!

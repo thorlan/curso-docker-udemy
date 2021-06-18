@@ -32,6 +32,13 @@ spec:
     spec: 
       containers:
         - name: second-node
-          image: academind/kub-first-app:2
+          image: thorlandini/kub-first-app:2
+          imagePullPolicy: Always #sempre vai pegar a imagem no repository docker por causa do always
+          livenessProbe:
+            httpGet:
+              path: /
+              port: 8080
+            periodSeconds: 10
+            initialDelaySeconds: 5
         # - name: ...
         #   image: ...
